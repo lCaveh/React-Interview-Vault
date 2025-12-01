@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "declaration": false,
+    "declarationMap": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "esnext",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "strict": true,
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@redux/*": [
+        "src/redux/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node modules",
+    "**/*.d.ts",
+    "dist"
+  ]
+}

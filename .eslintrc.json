@@ -1,0 +1,77 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "import",
+      "unused-imports",
+      "prettier",
+      "typescript-sort-keys"
+    ],
+    "extends": [
+      "plugin:react/recommended",
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "ignorePatterns": [
+      "node_modules",
+      "build",
+      "dist",
+      "coverage",
+      "scripts",
+      "webpack.config.js",
+      "jest.config.js"
+    ],
+    "rules": {
+      "react/display-name": "off",
+      "sort-imports": [
+        "warn",
+        {
+          "ignoreDeclarationSort": true
+        }
+      ],
+      "max-len": [
+        "error",
+        {
+          "code": 150,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignoreRegExpLiterals": true,
+          "ignoreComments": true
+        }
+      ],
+      "quotes": ["error", "single"],
+      "object-curly-spacing": ["error", "always"],
+      "array-bracket-spacing": ["warn", "always"],
+      "@typescript-eslint/explicit-function-return-type": ["error"],
+      "@typescript-eslint/no-var-requires": 0,
+      "@typescript-eslint/naming-convention": [
+        "warn",
+        {
+            "selector": "variable",
+            "format": ["camelCase", "UPPER_CASE"]
+        },
+        {
+            "selector": "parameter",
+            "format": ["camelCase"],
+            "leadingUnderscore": "allow"
+        }
+      ],      
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": ["warn"],
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          "vars": "all",
+          "varsIgnorePattern": "^_",
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ],
+      "typescript-sort-keys/interface": "warn",
+      "typescript-sort-keys/string-enum": "warn"
+    }
+  }
+  
