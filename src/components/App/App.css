@@ -1,0 +1,26 @@
+.app-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        padding: 35px 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        padding: 30px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        padding: 20px 12px;
+    }
+}
