@@ -1,26 +1,48 @@
 .app-container {
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-container .project-container {
+    margin: 0;
+    width: 100%;
+    max-width: none;
 }
 
 @media (max-width: 1024px) {
     .app-container {
-        padding: 35px 18px;
+        padding: 0;
+    }
+
+    .app-container .project-container {
+        margin: 0;
+        width: 100%;
     }
 }
 
 @media (max-width: 768px) {
     .app-container {
-        padding: 30px 16px;
+        padding: 0;
+    }
+
+    .app-container .project-container {
+        margin: 0;
+        width: 100%;
     }
 }
 
 @media (max-width: 480px) {
     .app-container {
-        padding: 20px 12px;
+        padding: 0;
+    }
+
+    .app-container .project-container {
+        margin: 0;
+        width: 100%;
     }
 }

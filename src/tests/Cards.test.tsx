@@ -1,7 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render as rtlRender, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { Cards } from '@components/Cards';
 import type { CardData } from '@components/Cards';
+
+const render = (component: React.ReactElement) => {
+    return rtlRender(<BrowserRouter>{component}</BrowserRouter>);
+};
 
 describe('Cards Component', () => {
     const mockCards: CardData[] = [

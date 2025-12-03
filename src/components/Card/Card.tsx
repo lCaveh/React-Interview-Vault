@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Card.css';
 
 const PLACEHOLDER_IMAGE = '/assets/placeholder.svg';
@@ -12,13 +13,20 @@ interface CardProps {
 
 const Card = ({ title, description, image, id }: CardProps): ReactElement => {
   const [imageSrc, setImageSrc] = useState(image);
+  const navigate = useNavigate();
 
   const handleImageError = (): void => {
     setImageSrc(PLACEHOLDER_IMAGE);
   };
 
+  const handleCardClick = (): void => {
+    if (id) {
+      navigate(`/solutions/${id}`);
+    }
+  };
+
   return (
-    <div className="card" data-testid={`card-${id}`}>
+    <div className="card" data-testid={`card-${id}`} onClick={handleCardClick} role="button" tabIndex={0}>
       <div className="card-image-container">
         <img src={imageSrc} alt={title} className="card-image" onError={handleImageError} />
       </div>

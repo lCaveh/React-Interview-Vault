@@ -1,7 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render as rtlRender, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
 import { Main } from '@components/Main';
+
+const render = (component: React.ReactElement) => {
+    return rtlRender(<BrowserRouter>{component}</BrowserRouter>);
+};
 
 describe('Main Component', () => {
     it('should render main header with title', () => {
@@ -44,9 +49,9 @@ describe('Main Component', () => {
         render(<Main />);
 
         const searchInput = screen.getByTestId('search-input');
-        await user.type(searchInput, 'Hooks');
+        await user.type(searchInput, 'Tic');
 
-        expect(screen.getByText('React Hooks')).toBeInTheDocument();
+        expect(screen.getByText('Tic Tac Toe')).toBeInTheDocument();
     });
 
     it('should show no results message when no cards match search', async () => {
@@ -82,9 +87,9 @@ describe('Main Component', () => {
         render(<Main />);
 
         const searchInput = screen.getByTestId('search-input');
-        await user.type(searchInput, 'HOOKS');
+        await user.type(searchInput, 'TIC');
 
-        expect(screen.getByText('React Hooks')).toBeInTheDocument();
+        expect(screen.getByText('Tic Tac Toe')).toBeInTheDocument();
     });
 
     it('should filter cards with partial match', async () => {
@@ -92,7 +97,7 @@ describe('Main Component', () => {
         render(<Main />);
 
         const searchInput = screen.getByTestId('search-input');
-        await user.type(searchInput, 'React');
+        await user.type(searchInput, 'Tac');
 
         const cards = screen.getAllByTestId(/^card-/);
         expect(cards.length).toBeGreaterThan(0);

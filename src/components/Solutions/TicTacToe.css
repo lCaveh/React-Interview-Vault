@@ -1,0 +1,193 @@
+.tic-tac-toe-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.tic-tac-toe-container h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #333;
+}
+
+.game-info {
+    text-align: center;
+    width: 100%;
+}
+
+.status {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #0066cc;
+    margin: 0;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.square {
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+    font-weight: bold;
+    border: 2px solid #333;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    color: #333;
+}
+
+.square:hover {
+    background: #f9f9f9;
+    transform: scale(0.98);
+}
+
+.square:active {
+    transform: scale(0.95);
+}
+
+.square:disabled {
+    cursor: not-allowed;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.reset-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+    background: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+}
+
+.reset-btn:active {
+    transform: translateY(0);
+}
+
+.history {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.history h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 1.25rem;
+}
+
+.history-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.history-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    background: #e8e8e8;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.history-btn:hover {
+    background: #d8d8d8;
+}
+
+.history-btn.active {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+}
+
+@media (max-width: 768px) {
+    .tic-tac-toe-container {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .tic-tac-toe-container h1 {
+        font-size: 2rem;
+    }
+
+    .board {
+        width: 250px;
+        height: 250px;
+        gap: 6px;
+    }
+
+    .square {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tic-tac-toe-container {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .tic-tac-toe-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .board {
+        width: 200px;
+        height: 200px;
+        gap: 4px;
+        padding: 8px;
+    }
+
+    .square {
+        font-size: 1.25rem;
+    }
+
+    .reset-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .history-buttons {
+        gap: 6px;
+    }
+
+    .history-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}

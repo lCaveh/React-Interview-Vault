@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { Card } from '@components/Card';
 
 describe('Card Component', () => {
@@ -11,21 +12,33 @@ describe('Card Component', () => {
     };
 
     it('should render card with title', () => {
-        render(<Card {...mockCardProps} />);
+        render(
+            <BrowserRouter>
+                <Card {...mockCardProps} />
+            </BrowserRouter>
+        );
 
         const title = screen.getByText('React Hooks');
         expect(title).toBeInTheDocument();
     });
 
     it('should render card with description', () => {
-        render(<Card {...mockCardProps} />);
+        render(
+            <BrowserRouter>
+                <Card {...mockCardProps} />
+            </BrowserRouter>
+        );
 
         const description = screen.getByText('Learn about React Hooks');
         expect(description).toBeInTheDocument();
     });
 
     it('should render card image', () => {
-        render(<Card {...mockCardProps} />);
+        render(
+            <BrowserRouter>
+                <Card {...mockCardProps} />
+            </BrowserRouter>
+        );
 
         const image = screen.getByAltText('React Hooks') as HTMLImageElement;
         expect(image).toBeInTheDocument();
@@ -33,7 +46,11 @@ describe('Card Component', () => {
     });
 
     it('should have correct data-testid', () => {
-        render(<Card {...mockCardProps} />);
+        render(
+            <BrowserRouter>
+                <Card {...mockCardProps} />
+            </BrowserRouter>
+        );
 
         const card = screen.getByTestId('card-1');
         expect(card).toBeInTheDocument();
@@ -41,14 +58,22 @@ describe('Card Component', () => {
 
     it('should render without id prop', () => {
         const { id, ...propsWithoutId } = mockCardProps;
-        render(<Card {...propsWithoutId} />);
+        render(
+            <BrowserRouter>
+                <Card {...propsWithoutId} />
+            </BrowserRouter>
+        );
 
         const title = screen.getByText('React Hooks');
         expect(title).toBeInTheDocument();
     });
 
     it('should display placeholder image on image load error', () => {
-        render(<Card {...mockCardProps} />);
+        render(
+            <BrowserRouter>
+                <Card {...mockCardProps} />
+            </BrowserRouter>
+        );
 
         const image = screen.getByAltText('React Hooks') as HTMLImageElement;
         expect(image).toBeInTheDocument();
