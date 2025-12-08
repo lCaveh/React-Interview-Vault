@@ -1,24 +1,26 @@
 import React, { ReactElement, useState, useMemo } from 'react';
 import { Search } from '../Search/Search';
 import { Cards } from '../Cards/Cards';
-import { PROJECTS } from '@configs/projects';
+import solutions from '@configs/solutions';
 import './Main.css';
+
+const solutionsList = Object.values(solutions);
 
 const Main = (): ReactElement => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredCards = useMemo(() => {
     if (!searchQuery.trim()) {
-      return PROJECTS;
+      return solutionsList;
     }
 
-    return PROJECTS.filter((card) =>
+    return solutionsList.filter((card) =>
       card.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery]);
 
   return (
-    <>
+    <div className='main-wrapper'>
       <div className="main-header">
         <h1 className="main-title">React Interview Vault</h1>
         <p className="main-subtitle">A collection of minimal, working React solutions for common frontend interview questions.</p>
@@ -31,7 +33,7 @@ const Main = (): ReactElement => {
           <p>No cards found matching "{searchQuery}"</p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

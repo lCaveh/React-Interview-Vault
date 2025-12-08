@@ -41,11 +41,11 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/types/**/*.d.ts"
   ],
   "exclude": [
-    "node modules",
-    "**/*.d.ts",
+    "node_modules",
     "dist"
   ]
 }

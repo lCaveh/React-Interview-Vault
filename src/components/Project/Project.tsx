@@ -1,82 +1,56 @@
-import React, { useState, ReactElement, useRef, useEffect } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { PROJECTS } from '@configs/projects';
+import { LiveProvider, LiveError, LivePreview } from 'react-live';
 import solutions from '@configs/solutions';
 import './Project.css';
+
+const processCodeForLive = (code: string): string => {
+    return code
+        .replace(/^import\s+.*?from\s+['"].*?['"];?\s*$/gm, '')
+        .replace(/^import\s+['"].*?['"];?\s*$/gm, '')
+        .replace(/^export\s+(const|function|class)\s+/gm, '$1 ')
+        .replace(/^export\s+default\s+\w+;?\s*$/gm, '')
+        .replace(/\n\s*data-testid=\{`[^`]+`\}/g, '')
+        .replace(/\n\s*data-testid="[^"]+"/g, '')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+};
 
 const Project = (): ReactElement => {
     const navigate = useNavigate();
     const { solutionId: solutionIdParam } = useParams<{ solutionId: string }>();
     const [activeTab, setActiveTab] = useState<'component' | 'css' | 'preview'>('component');
-    const iframeRef = useRef<HTMLIFrameElement>(null);
-    const mobileIframeRef = useRef<HTMLIFrameElement>(null);
 
     const solutionIdNum = parseInt(solutionIdParam || '0');
     const solution = solutions[solutionIdNum];
-    const solutionProject = PROJECTS.find((project) => project.id === solutionIdNum);
 
-    const [componentCode, setComponentCode] = useState(solution?.code || '');
+    const initialCode = solution?.code ? processCodeForLive(solution.code) : '';
+    const [componentCode, setComponentCode] = useState(initialCode);
     const [cssCode, setCssCode] = useState(solution?.css || '');
 
-    if (!solutionProject || !solution) {
+    if (!solution) {
         return <div className="project-container">Solution not found</div>;
     }
 
-    const getIframeContent = () => {
-        return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"><\/script>
-        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"><\/script>
-        <script src="https://unpkg.com/@babel/standalone/babel.min.js"><\/script>
-        <style>
-          * { box-sizing: border-box; }
-          body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
-          ${cssCode}
-        </style>
-      </head>
-      <body>
-        <div id="root"></div>
-        <script type="text/babel">
-          const React = window.React;
-          const ReactDOM = window.ReactDOM;
+    const scope = { React, useState: React.useState };
 
-          ${componentCode}
-          
-          const root = ReactDOM.createRoot(document.getElementById('root'));
-          root.render(React.createElement(TicTacToe));
-        <\/script>
-      </body>
-      </html>
-    `;
-    };
+    const liveCode = `${componentCode}
 
-    const handleSubmit = () => {
-        const html = `data:text/html;charset=utf-8,${encodeURIComponent(getIframeContent())}`;
-        if (iframeRef.current) {
-            iframeRef.current.src = html;
-        }
-        if (mobileIframeRef.current) {
-            mobileIframeRef.current.src = html;
-        }
-    };
+render(<TicTacToe />)`;
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            handleSubmit();
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [componentCode, cssCode]);
-
-    useEffect(() => {
-        if ((activeTab as 'component' | 'css' | 'preview') === 'preview') {
-            handleSubmit();
-        }
-    }, [activeTab]);
+    const renderPreview = () => (
+        <LiveProvider
+            code={liveCode}
+            scope={scope}
+            noInline={true}
+        >
+            <div className="preview-wrapper">
+                <style>{cssCode}</style>
+                <LivePreview className="live-preview" />
+                <LiveError className="live-error" />
+            </div>
+        </LiveProvider>
+    );
 
     return (
         <div className="project-container">
@@ -89,7 +63,7 @@ const Project = (): ReactElement => {
                 >
                     ← Back
                 </button>
-                <h1>{solutionProject.title}</h1>
+                <h1>{solution.title}</h1>
             </div>
 
             <div className="project-content">
@@ -110,8 +84,8 @@ const Project = (): ReactElement => {
                             CSS
                         </button>
                         <button
-                            className={`tab ${(activeTab as 'component' | 'css' | 'preview') === 'preview' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('preview' as any)}
+                            className={`tab ${activeTab === 'preview' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('preview')}
                             data-testid="tab-preview"
                         >
                             Preview
@@ -124,7 +98,7 @@ const Project = (): ReactElement => {
                                 value={componentCode}
                                 onChange={(e) => setComponentCode(e.target.value)}
                                 className="editor-textarea"
-                                placeholder="Enter React component code..."
+                                placeholder="React component code..."
                                 data-testid="component-textarea"
                                 spellCheck="false"
                             />
@@ -139,15 +113,9 @@ const Project = (): ReactElement => {
                                 spellCheck="false"
                             />
                         )}
-                        {(activeTab as 'component' | 'css' | 'preview') === 'preview' && (
-                            <div className="mobile-preview-container">
-                                <iframe
-                                    ref={mobileIframeRef}
-                                    className="preview-iframe"
-                                    title="Code Preview"
-                                    sandbox="allow-scripts allow-popups"
-                                    data-testid="preview-iframe-mobile"
-                                />
+                        {activeTab === 'preview' && (
+                            <div className="mobile-preview-container" data-testid="preview-iframe-mobile">
+                                {renderPreview()}
                             </div>
                         )}
                     </div>
@@ -157,14 +125,8 @@ const Project = (): ReactElement => {
                     <div className="preview-header">
                         <h2>Preview</h2>
                     </div>
-                    <div className="preview-container">
-                        <iframe
-                            ref={iframeRef}
-                            className="preview-iframe"
-                            title="Code Preview"
-                            sandbox="allow-scripts allow-popups"
-                            data-testid="preview-iframe-desktop"
-                        />
+                    <div className="preview-container" data-testid="preview-iframe-desktop">
+                        {renderPreview()}
                     </div>
                 </div>
             </div>

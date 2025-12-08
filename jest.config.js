@@ -27,6 +27,7 @@ module.exports = {
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/file.mock.js',
     '\\.(css|scss|less)$': '<rootDir>/style.mock.js',
+    '\\?raw$': '<rootDir>/file.mock.js',
     ...pathsToModuleNameMapper(compilerOptions.paths, {
       prefix: '<rootDir>',
     })

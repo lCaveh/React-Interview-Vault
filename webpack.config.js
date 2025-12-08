@@ -14,8 +14,13 @@ module.exports = {
   module: {
     rules: [
       {
+        resourceQuery: /raw/,
+        type: 'asset/source',
+      },
+      {
         test: /\.(ts|tsx)$/,
-        exclude: /node modules/,
+        exclude: /node_modules/,
+        resourceQuery: { not: [/raw/] },
         resolve: {
           extensions: ['.ts', '.tsx', '.js', '.json'],
         },
@@ -27,6 +32,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        resourceQuery: { not: [/raw/] },
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],

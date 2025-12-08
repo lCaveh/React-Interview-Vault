@@ -158,48 +158,18 @@ body {
     height: 100%;
     border: none;
     padding: 16px;
-    font-family: 'Courier New', monospace;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
     font-size: 0.85rem;
-    line-height: 1.5;
+    line-height: 1.6;
     resize: none;
-    color: #333;
-    background: white;
+    color: #1a1a1a;
+    background: #fafafa;
+    tab-size: 4;
 }
 
 .editor-textarea:focus {
     outline: none;
-    background: #fafafa;
-}
-
-.submit-button {
-    padding: 12px 16px;
-    border-top: 2px solid #e0e0e0;
-    background: white;
-    display: flex;
-    gap: 8px;
-}
-
-.btn-submit {
-    flex: 1;
-    padding: 10px 16px;
-    background: #0066cc;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btn-submit:hover {
-    background: #0052a3;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
-}
-
-.btn-submit:active {
-    transform: translateY(0);
+    background: #fff;
 }
 
 .preview-header {
@@ -221,29 +191,6 @@ body {
     font-size: 1.25rem;
 }
 
-.back-to-code-button {
-    position: absolute;
-    left: 16px;
-    background: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.back-to-code-button:hover {
-    background: #e0e0e0;
-    border-color: #999;
-}
-
-.back-to-code-button:active {
-    transform: translateY(1px);
-}
-
 .preview-container {
     flex: 1;
     overflow: auto;
@@ -257,14 +204,6 @@ body {
 
 .mobile-preview-container {
     display: none;
-}
-
-.preview-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 4px;
-    background: white;
 }
 
 @media (max-width: 1200px) {
@@ -361,10 +300,31 @@ body {
         box-sizing: border-box;
     }
 
-    .mobile-preview-container .preview-iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: block;
-    }
+}
+
+/* React Live Preview Styles */
+.preview-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.live-preview {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.live-error {
+    background: #fee;
+    color: #c00;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    margin: 0;
 }
