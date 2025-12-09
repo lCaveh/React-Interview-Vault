@@ -1,8 +1,10 @@
-import React, { useState, ReactElement } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 import solutions from '@configs/solutions';
 import './Project.css';
+
+const MOBILE_BREAKPOINT = 768;
 
 const processCodeForLive = (code: string): string => {
     return code
@@ -20,6 +22,15 @@ const Project = (): ReactElement => {
     const navigate = useNavigate();
     const { solutionId: solutionIdParam } = useParams<{ solutionId: string }>();
     const [activeTab, setActiveTab] = useState<'component' | 'css' | 'preview'>('component');
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_BREAKPOINT);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const solutionIdNum = parseInt(solutionIdParam || '0');
     const solution = solutions.find((s) => s.id === solutionIdNum);
@@ -113,7 +124,7 @@ render(<${solution.componentName} />)`;
                                 spellCheck="false"
                             />
                         )}
-                        {activeTab === 'preview' && (
+                        {activeTab === 'preview' && isMobile && (
                             <div data-testid="preview-iframe-mobile">
                                 {renderPreview()}
                             </div>
@@ -121,14 +132,16 @@ render(<${solution.componentName} />)`;
                     </div>
                 </div>
 
-                <div className="right-panel">
-                    <div className="preview-header">
-                        <h2>Preview</h2>
+                {!isMobile && (
+                    <div className="right-panel">
+                        <div className="preview-header">
+                            <h2>Preview</h2>
+                        </div>
+                        <div data-testid="preview-iframe-desktop">
+                            {renderPreview()}
+                        </div>
                     </div>
-                    <div data-testid="preview-iframe-desktop">
-                        {renderPreview()}
-                    </div>
-                </div>
+                )}
             </div>
         </div>
     );

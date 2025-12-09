@@ -157,6 +157,14 @@ body {
     flex: 1;
     overflow: hidden;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+[data-testid="preview-iframe-mobile"] {
+    flex: 1;
+    overflow: auto;
+    background: white;
 }
 
 .editor-textarea {
@@ -224,6 +232,7 @@ body {
 @media (max-width: 768px) {
     .project-container {
         height: 100vh;
+        overflow: hidden;
     }
 
     .project-header {
@@ -243,8 +252,9 @@ body {
     }
 
     .project-content {
-        flex-direction: row;
+        flex-direction: column;
         flex: 1;
+        overflow: hidden;
     }
 
     .left-panel {
@@ -253,10 +263,8 @@ body {
         display: flex;
         flex-direction: column;
         border: none;
-    }
-
-    .right-panel {
-        display: none !important;
+        overflow: hidden;
+        min-width: 0;
     }
 
     .editor-textarea {
@@ -267,6 +275,7 @@ body {
     .tabs {
         padding: 0;
         height: 60px;
+        flex-shrink: 0;
     }
 
     .tab {
@@ -281,6 +290,16 @@ body {
     .code-editor {
         flex: 1;
         overflow: hidden;
+        position: relative;
+    }
+
+    [data-testid="preview-iframe-mobile"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
     }
 }
 
@@ -288,10 +307,14 @@ body {
 .preview-wrapper {
     background: white;
     overflow: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .preview-wrapper>div:first-of-type {
     overflow: auto;
+    flex: 1;
 }
 
 .live-preview {
