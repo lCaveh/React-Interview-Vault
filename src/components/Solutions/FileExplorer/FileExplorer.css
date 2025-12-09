@@ -2,6 +2,7 @@
     position: absolute;
     inset: 0;
     overflow: auto;
+    padding: 10px;
 }
 
 .file-explorer-folder {

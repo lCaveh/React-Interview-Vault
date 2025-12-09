@@ -60,8 +60,10 @@ const FileExplorer = (): ReactElement => {
         root.map(item => (
             <>
                 {item.children ? <div key={item.id}>
-                    <div onClick={() => setIsOpen({ ...isOpen, [item.id]: !isOpen[item.id] })} style={{ marginLeft: dept }} className="file-explorer-folder">📁 {item.name}</div>
-                    {isOpen[item.id] && <ShowFile root={item.children} dept={dept + 8} />}
+                    <div onClick={() => setIsOpen({ ...isOpen, [item.id]: !isOpen[item.id] })}
+                        style={{ marginLeft: dept }}
+                        className="file-explorer-folder">📁 {item.name}</div>
+                    {isOpen[item.id] && <ShowFile root={item.children} dept={dept + 10} />}
                 </div> : <div key={item.id} style={{ marginLeft: dept }}>📄 {item.name}</div>}
             </>
         ))
