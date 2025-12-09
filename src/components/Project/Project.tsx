@@ -22,7 +22,7 @@ const Project = (): ReactElement => {
     const [activeTab, setActiveTab] = useState<'component' | 'css' | 'preview'>('component');
 
     const solutionIdNum = parseInt(solutionIdParam || '0');
-    const solution = solutions[solutionIdNum];
+    const solution = solutions.find((s) => s.id === solutionIdNum);
 
     const initialCode = solution?.code ? processCodeForLive(solution.code) : '';
     const [componentCode, setComponentCode] = useState(initialCode);
@@ -36,7 +36,7 @@ const Project = (): ReactElement => {
 
     const liveCode = `${componentCode}
 
-render(<TicTacToe />)`;
+render(<${solution.componentName} />)`;
 
     const renderPreview = () => (
         <LiveProvider
@@ -46,7 +46,7 @@ render(<TicTacToe />)`;
         >
             <div className="preview-wrapper">
                 <style>{cssCode}</style>
-                <LivePreview className="live-preview" />
+                <LivePreview />
                 <LiveError className="live-error" />
             </div>
         </LiveProvider>
@@ -114,7 +114,7 @@ render(<TicTacToe />)`;
                             />
                         )}
                         {activeTab === 'preview' && (
-                            <div className="mobile-preview-container" data-testid="preview-iframe-mobile">
+                            <div data-testid="preview-iframe-mobile">
                                 {renderPreview()}
                             </div>
                         )}
@@ -125,7 +125,7 @@ render(<TicTacToe />)`;
                     <div className="preview-header">
                         <h2>Preview</h2>
                     </div>
-                    <div className="preview-container" data-testid="preview-iframe-desktop">
+                    <div data-testid="preview-iframe-desktop">
                         {renderPreview()}
                     </div>
                 </div>

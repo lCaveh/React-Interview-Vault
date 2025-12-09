@@ -4,17 +4,15 @@ import { Cards } from '../Cards/Cards';
 import solutions from '@configs/solutions';
 import './Main.css';
 
-const solutionsList = Object.values(solutions);
-
 const Main = (): ReactElement => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredCards = useMemo(() => {
     if (!searchQuery.trim()) {
-      return solutionsList;
+      return solutions;
     }
 
-    return solutionsList.filter((card) =>
+    return solutions.filter((card) =>
       card.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery]);

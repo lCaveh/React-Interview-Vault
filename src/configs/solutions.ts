@@ -1,27 +1,53 @@
-import { TicTacToe } from '@components/Solutions';
-import ticTacToeCode from '@components/Solutions/TicTacToe.tsx?raw';
-import ticTacToeCss from '@components/Solutions/TicTacToe.css?raw';
-
-export interface SolutionConfig {
+export interface SolutionMeta {
   id: number;
   title: string;
   description: string;
   image: string;
+  componentName: string;
+}
+
+export interface SolutionConfig extends SolutionMeta {
   component: React.ComponentType;
   code: string;
   css: string;
 }
 
-const solutions: Record<number, SolutionConfig> = {
-  1: {
-    id: 1,
-    title: 'Tic Tac Toe',
-    description: 'Build a classic Tic Tac Toe game with game logic, win detection, move history, and player turn management.',
-    image: 'https://via.placeholder.com/300x200?text=Tic+Tac+Toe',
-    component: TicTacToe,
-    code: ticTacToeCode,
-    css: ticTacToeCss,
-  },
-};
+// Each solution folder exports: default (component), meta, code, css
+interface SolutionModule {
+  default: React.ComponentType;
+  meta: SolutionMeta;
+  code: string;
+  css: string;
+}
+
+// Dynamically load all solutions using require.context
+// Each solution folder must have: index.ts that exports default, meta, code, css
+const solutionContext = require.context(
+  '../components/Solutions',
+  true,
+  /^\.\/[^/]+\/index\.ts$/
+);
+
+const solutions: SolutionConfig[] = [];
+
+solutionContext.keys().forEach((key: string) => {
+  try {
+    const module = solutionContext(key) as SolutionModule;
+
+    if (module.meta && module.default) {
+      solutions.push({
+        ...module.meta,
+        component: module.default,
+        code: module.code || '',
+        css: module.css || '',
+      });
+    }
+  } catch (e) {
+    console.error(`Failed to load solution from ${key}:`, e);
+  }
+});
+
+// Sort by id
+solutions.sort((a, b) => a.id - b.id);
 
 export default solutions;

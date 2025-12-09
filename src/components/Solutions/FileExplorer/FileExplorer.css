@@ -1,0 +1,9 @@
+.file-explorer-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+}
+
+.file-explorer-folder {
+    cursor: pointer;
+}

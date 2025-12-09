@@ -1,1 +1,2 @@
-export { TicTacToe } from './TicTacToe';
+export { default as FileExplorer } from './FileExplorer';
+export { default as TicTacToe } from './TicTacToe';
