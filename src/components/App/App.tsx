@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Main } from '@components/Main';
 import { Project } from '@components/Project';
 import './App.css';
 
 const App = (): ReactElement => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="app-container">
         <Routes>
           <Route path="/" element={<Navigate to="/main" replace />} />
@@ -14,7 +14,7 @@ const App = (): ReactElement => {
           <Route path="/solutions/:solutionId" element={<Project />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

@@ -1,8 +1,7 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useImage } from '@hooks/useImage';
 import './Card.css';
-
-const PLACEHOLDER_IMAGE = '/assets/placeholder.svg';
 
 interface CardProps {
   title: string;
@@ -12,12 +11,8 @@ interface CardProps {
 }
 
 const Card = ({ title, description, image, id }: CardProps): ReactElement => {
-  const [imageSrc, setImageSrc] = useState(image);
+  const { imageSrc, handleImageError } = useImage(image);
   const navigate = useNavigate();
-
-  const handleImageError = (): void => {
-    setImageSrc(PLACEHOLDER_IMAGE);
-  };
 
   const handleCardClick = (): void => {
     if (id) {

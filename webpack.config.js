@@ -9,7 +9,9 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: __dirname + '/dist',
-    publicPath: '/',
+    publicPath: prod ? '/React-Interview-Vault/' : '/',
+    filename: prod ? '[name].[contenthash].js' : '[name].js',
+    clean: true,
   },
   module: {
     rules: [
@@ -44,7 +46,10 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
     new CopyPlugin({
-      patterns: [{ from: './public/assets', to: 'assets' }],
+      patterns: [
+        { from: './public/assets', to: 'assets' },
+        { from: './public/404.html', to: '404.html' },
+      ],
     }),
   ],
   devServer: {
@@ -72,7 +77,8 @@ module.exports = {
       '@src': path.resolve(__dirname, 'src'),
       '@components': path.resolve(__dirname, 'src/components'),
       '@redux': path.resolve(__dirname, 'src/redux'),
-      '@configs': path.resolve(__dirname, 'src/configs')
+      '@configs': path.resolve(__dirname, 'src/configs'),
+      '@hooks': path.resolve(__dirname, 'src/hooks')
     },
   },
 };
