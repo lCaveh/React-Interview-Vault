@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { LiveProvider, LiveError, LivePreview } from 'react-live';
+import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import { themes } from 'prism-react-renderer';
 import solutions from '@configs/solutions';
 import './Project.css';
 
@@ -54,12 +55,41 @@ render(<${solution.componentName} />)`;
             code={liveCode}
             scope={scope}
             noInline={true}
+            theme={themes.vsLight}
         >
             <div className="preview-wrapper">
                 <style>{cssCode}</style>
                 <LivePreview />
                 <LiveError className="live-error" />
             </div>
+        </LiveProvider>
+    );
+
+    const renderComponentEditor = () => (
+        <LiveProvider
+            code={componentCode}
+            theme={themes.vsLight}
+            language="tsx"
+        >
+            <LiveEditor
+                onChange={setComponentCode}
+                className="live-editor"
+                data-testid="component-textarea"
+            />
+        </LiveProvider>
+    );
+
+    const renderCssEditor = () => (
+        <LiveProvider
+            code={cssCode}
+            theme={themes.vsLight}
+            language="css"
+        >
+            <LiveEditor
+                onChange={setCssCode}
+                className="live-editor"
+                data-testid="css-textarea"
+            />
         </LiveProvider>
     );
 
@@ -104,26 +134,8 @@ render(<${solution.componentName} />)`;
                     </div>
 
                     <div className="code-editor">
-                        {activeTab === 'component' && (
-                            <textarea
-                                value={componentCode}
-                                onChange={(e) => setComponentCode(e.target.value)}
-                                className="editor-textarea"
-                                placeholder="React component code..."
-                                data-testid="component-textarea"
-                                spellCheck="false"
-                            />
-                        )}
-                        {activeTab === 'css' && (
-                            <textarea
-                                value={cssCode}
-                                onChange={(e) => setCssCode(e.target.value)}
-                                className="editor-textarea"
-                                placeholder="Enter CSS code..."
-                                data-testid="css-textarea"
-                                spellCheck="false"
-                            />
-                        )}
+                        {activeTab === 'component' && renderComponentEditor()}
+                        {activeTab === 'css' && renderCssEditor()}
                         {activeTab === 'preview' && isMobile && (
                             <div data-testid="preview-iframe-mobile">
                                 {renderPreview()}
