@@ -1,0 +1,15 @@
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="200" fill="#f0f0f0"/>
+
+  <!-- Header bar -->
+  <rect x="10" y="10" width="280" height="20" fill="#d0d0d0" rx="4" ry="4"/>
+
+  <!-- Sidebar / menu -->
+  <rect x="10" y="40" width="60" height="150" fill="#d0d0d0" rx="4" ry="4"/>
+
+  <!-- Main content blocks -->
+  <rect x="80" y="40" width="90" height="60" fill="#d8d8d8" rx="4" ry="4"/>
+  <rect x="180" y="40" width="110" height="60" fill="#d8d8d8" rx="4" ry="4"/>
+  <rect x="80" y="110" width="210" height="80" fill="#d8d8d8" rx="4" ry="4"/>
+</svg>
