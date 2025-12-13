@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 
-const BASE_URL = 'https://lcaveh.github.io/React-Interview-Vault';
+const isProd = process.env.NODE_ENV === 'production';
+const BASE_URL = isProd ? 'https://lcaveh.github.io/React-Interview-Vault' : '';
 const PLACEHOLDER_IMAGE = `${BASE_URL}/assets/placeholder.svg`;
 
 const getImagePath = (path: string): string => {
