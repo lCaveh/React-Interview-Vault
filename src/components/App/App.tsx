@@ -8,6 +8,9 @@ const App = (): ReactElement => {
   return (
     <HashRouter>
       <div className="app-container">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Routes>
           <Route path="/" element={<Navigate to="/main" replace />} />
           <Route path="/main" element={<Main />} />

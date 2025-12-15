@@ -94,26 +94,30 @@ render(<${solution.componentName} />)`;
     );
 
     return (
-        <div className="project-container">
-            <div className="project-header">
+        <main className="project-container" id="main-content">
+            <header className="project-header">
                 <button
                     className="back-button"
                     onClick={() => navigate('/main')}
                     data-testid="back-button"
-                    aria-label="Back to main"
+                    aria-label="Go back to solutions list"
                 >
                     ← Back
                 </button>
                 <h1>{solution.title}</h1>
-            </div>
+            </header>
 
             <div className="project-content">
-                <div className="left-panel">
-                    <div className="tabs">
+                <section className="left-panel" aria-label="Code editor">
+                    <nav className="tabs" role="tablist" aria-label="Editor tabs">
                         <button
                             className={`tab ${activeTab === 'component' ? 'active' : ''}`}
                             onClick={() => setActiveTab('component')}
                             data-testid="tab-component"
+                            role="tab"
+                            aria-selected={activeTab === 'component'}
+                            aria-controls="panel-component"
+                            id="tab-component"
                         >
                             React Component
                         </button>
@@ -121,6 +125,10 @@ render(<${solution.componentName} />)`;
                             className={`tab ${activeTab === 'css' ? 'active' : ''}`}
                             onClick={() => setActiveTab('css')}
                             data-testid="tab-css"
+                            role="tab"
+                            aria-selected={activeTab === 'css'}
+                            aria-controls="panel-css"
+                            id="tab-css"
                         >
                             CSS
                         </button>
@@ -128,34 +136,64 @@ render(<${solution.componentName} />)`;
                             className={`tab ${activeTab === 'preview' ? 'active' : ''}`}
                             onClick={() => setActiveTab('preview')}
                             data-testid="tab-preview"
+                            role="tab"
+                            aria-selected={activeTab === 'preview'}
+                            aria-controls="panel-preview"
+                            id="tab-preview"
                         >
                             Preview
                         </button>
-                    </div>
+                    </nav>
 
                     <div className="code-editor">
-                        {activeTab === 'component' && renderComponentEditor()}
-                        {activeTab === 'css' && renderCssEditor()}
+                        {activeTab === 'component' && (
+                            <div
+                                role="tabpanel"
+                                id="panel-component"
+                                aria-labelledby="tab-component"
+                            >
+                                {renderComponentEditor()}
+                            </div>
+                        )}
+                        {activeTab === 'css' && (
+                            <div
+                                role="tabpanel"
+                                id="panel-css"
+                                aria-labelledby="tab-css"
+                            >
+                                {renderCssEditor()}
+                            </div>
+                        )}
                         {activeTab === 'preview' && isMobile && (
-                            <div data-testid="preview-iframe-mobile">
+                            <div
+                                data-testid="preview-iframe-mobile"
+                                role="tabpanel"
+                                id="panel-preview"
+                                aria-labelledby="tab-preview"
+                                aria-label="Live preview of your component"
+                            >
                                 {renderPreview()}
                             </div>
                         )}
                     </div>
-                </div>
+                </section>
 
                 {!isMobile && (
-                    <div className="right-panel">
+                    <aside className="right-panel" aria-label="Live preview">
                         <div className="preview-header">
                             <h2>Preview</h2>
                         </div>
-                        <div data-testid="preview-iframe-desktop">
+                        <div
+                            data-testid="preview-iframe-desktop"
+                            aria-label="Live preview of your component"
+                            role="region"
+                        >
                             {renderPreview()}
                         </div>
-                    </div>
+                    </aside>
                 )}
             </div>
-        </div>
+        </main>
     );
 };
 

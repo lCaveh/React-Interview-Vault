@@ -20,16 +20,37 @@ const Card = ({ title, description, image, id }: CardProps): ReactElement => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent): void => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleCardClick();
+    }
+  };
+
   return (
-    <div className="card" data-testid={`card-${id}`} onClick={handleCardClick} role="button" tabIndex={0}>
+    <article
+      className="card"
+      data-testid={`card-${id}`}
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label={`${title}: ${description}. Press Enter to view solution.`}
+    >
       <div className="card-image-container">
-        <img src={imageSrc} alt={title} className="card-image" onError={handleImageError} />
+        <img
+          src={imageSrc}
+          alt=""
+          className="card-image"
+          onError={handleImageError}
+          aria-hidden="true"
+        />
       </div>
       <div className="card-content">
         <h3 className="card-title">{title}</h3>
         <p className="card-description">{description}</p>
       </div>
-    </div>
+    </article>
   );
 };
 

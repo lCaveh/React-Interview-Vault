@@ -8,16 +8,25 @@ interface SearchProps {
 
 const Search = ({ value, onChange }: SearchProps): ReactElement => {
   return (
-    <div className="search-container">
+    <search className="search-container" role="search">
+      <label htmlFor="solution-search" className="visually-hidden">
+        Search solutions
+      </label>
       <input
-        type="text"
+        id="solution-search"
+        type="search"
         className="search-input"
         placeholder="Search cards by title..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
         data-testid="search-input"
+        aria-describedby="search-hint"
+        autoComplete="off"
       />
-    </div>
+      <span id="search-hint" className="visually-hidden">
+        Type to filter solutions by title
+      </span>
+    </search>
   );
 };
 

@@ -15,7 +15,11 @@ interface CardsProps {
 
 const Cards = ({ cards }: CardsProps): ReactElement => {
   return (
-    <div className="cards-grid" data-testid="cards-grid">
+    <section
+      className="cards-grid"
+      data-testid="cards-grid"
+      aria-label={`${cards.length} solution${cards.length !== 1 ? 's' : ''} available`}
+    >
       {cards.map((card) => (
         <Card
           key={card.id}
@@ -25,7 +29,7 @@ const Cards = ({ cards }: CardsProps): ReactElement => {
           image={card.image}
         />
       ))}
-    </div>
+    </section>
   );
 };
 

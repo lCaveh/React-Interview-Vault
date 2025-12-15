@@ -40,7 +40,7 @@ describe('Card Component', () => {
             </BrowserRouter>
         );
 
-        const image = screen.getByAltText('React Hooks') as HTMLImageElement;
+        const image = screen.getByRole('img', { hidden: true }) as HTMLImageElement;
         expect(image).toBeInTheDocument();
         expect(image.src).toBe(mockCardProps.image);
     });
@@ -75,7 +75,7 @@ describe('Card Component', () => {
             </BrowserRouter>
         );
 
-        const image = screen.getByAltText('React Hooks') as HTMLImageElement;
+        const image = screen.getByRole('img', { hidden: true }) as HTMLImageElement;
         expect(image).toBeInTheDocument();
 
         expect(image).toHaveAttribute('src', mockCardProps.image);
