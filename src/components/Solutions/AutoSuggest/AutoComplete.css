@@ -1,0 +1,25 @@
+.auto-complete-wrapper {
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auto-complete-input {
+    width: 300px;
+}
+
+.auto-complete-options {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+}
+
+.auto-complete-option {
+ border: none;
+ background-color: white;
+ &:hover {
+    background-color: lightgray;
+ }
+}

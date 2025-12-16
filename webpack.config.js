@@ -65,10 +65,7 @@ module.exports = {
     host: 'localhost',
     client: {
       progress: true,
-      overlay: {
-        errors: true,
-        warnings: false,
-      },
+      overlay: false,
     },
     open: true,
   },

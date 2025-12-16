@@ -91,6 +91,7 @@ body {
     min-width: 400px;
     box-sizing: border-box;
     overflow: hidden;
+    min-height: 0;
 }
 
 .right-panel {
@@ -156,10 +157,11 @@ body {
 
 .code-editor {
     flex: 1;
-    overflow: hidden;
+    overflow: auto;
     padding: 0;
     display: flex;
     flex-direction: column;
+    min-height: 0;
 }
 
 [data-testid="preview-iframe-mobile"] {
@@ -175,12 +177,14 @@ body {
     font-size: 14px !important;
     line-height: 1.6 !important;
     tab-size: 4;
+    min-height: 0;
 }
 
 .live-editor>textarea,
 .live-editor>pre {
     padding: 16px !important;
     min-height: 100%;
+    overflow: auto !important;
 }
 
 .live-editor>textarea {

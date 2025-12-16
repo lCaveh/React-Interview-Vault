@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import { LiveProvider, LiveEditor, LivePreview } from 'react-live';
 import { themes } from 'prism-react-renderer';
 import solutions from '@configs/solutions';
 import './Project.css';
@@ -44,7 +44,16 @@ const Project = (): ReactElement => {
         return <div className="project-container">Solution not found</div>;
     }
 
-    const scope = { React, useState: React.useState };
+    const scope = {
+        React,
+        useState: React.useState,
+        useEffect: React.useEffect,
+        useCallback: React.useCallback,
+        useMemo: React.useMemo,
+        useRef: React.useRef,
+        useContext: React.useContext,
+        useReducer: React.useReducer,
+    };
 
     const liveCode = `${componentCode}
 
@@ -60,7 +69,6 @@ render(<${solution.componentName} />)`;
             <div className="preview-wrapper">
                 <style>{cssCode}</style>
                 <LivePreview />
-                <LiveError className="live-error" />
             </div>
         </LiveProvider>
     );
